@@ -19,12 +19,12 @@
 			<div class="card-body">
 				<h3 class="text-center p-4">View Record</h3>
 				<div class="form-horizontal">
-					<form method='post'>
+					<form method='post' action="studentsearch.php">
 						<div class="form-group">
 			<div class="row m-1">
-				<input class="form-control col-sm-3 m-1" type="text" name="search"></input>
-				<button type="button" class="btn btn-primary ml-1">Search</button>	
-				<button type="button" class="btn btn-secondary ml-1">Edit</button>	
+				<input class="form-control col-sm-3 m-1" type="text" name="searchvalue"></input>
+				<button type="submit" name="search" class="btn btn-primary ml-1">Search</button>	
+				<button type="submit" name="edit" class="btn btn-secondary ml-1">Edit</button>	
 			</div>
 		</div>
 		<div class="card">

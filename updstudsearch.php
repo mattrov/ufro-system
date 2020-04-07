@@ -11,16 +11,27 @@
 <body>
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "ufro";
-$dbc = mysqli_connect($servername,$username,$password,$database);
-$query = "SELECT * FROM student";
-$result = mysqli_query($dbc,$query);
-$num = mysqli_num_rows($result);
+if (isset($_POST['search'])) {
+	$searchvalue = $_POST['searchvalue'];
+	$query = "SELECT * FROM student WHERE student_no LIKE '%".$searchvalue."%' OR student_name LIKE '%".$searchvalue."%' 
+	OR date LIKE '%".$searchvalue."%'OR time LIKE '%".$searchvalue."%' OR gender LIKE '%".$searchvalue."%' OR event_name LIKE '%".$searchvalue."%'
+	OR facility LIKE '%".$searchvalue."%' OR adviser LIKE '%".$searchvalue."%'";
+	$search_result = filterTable($query);
 
-?>
+}else {
+	$query = "SELECT * FROM student";
+	$search_result = filterTable($query);
+}
+
+
+function filterTable($query)
+{
+	$connect = mysqli_connect("localhost", "root", "", "ufro");
+	$filter_Result = mysqli_query($connect, $query);
+	return $filter_Result;
+
+}
+?>	
 <nav class="navbar navbar-expand navbar-light bg-light">
 		<img src="img/png/umak.png" class="navbar-brand" height="85px" width="81px"></img>
 		<ul class="navbar-nav w-100">
@@ -55,10 +66,37 @@ $num = mysqli_num_rows($result);
 							<th scope="col">EVENT NAME</th>
 							<th scope="col">FACILITY</th>
 							<th scope="col">ADVISER</th>  
+							<th scope="col">EDIT/ARCHIVE</th> 
 						</tr>
 					</thead>
-					
+<?php
+if(mysqli_num_rows($search_result) > 0){
+$i=1;
+while($row = mysqli_fetch_array($search_result))
+{
 
+?>
+<tr>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['student_no'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['student_name'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['date'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['time'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['gender'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['event_name'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['facility'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['adviser'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><a href="studedit.php?id=<?php echo $row['id'] ?>">
+Edit <br> <a href="employeedelete.php?id=<?php echo $row['id'] ?>">Delete</font></td>
+</tr>
+<?php
+$i++;
+}
+}
+else {
+		    echo "No results found...";
+		}
+
+?>
 <br>
 <a href = "viewrecsstudent.php"><center> Back to Table </center></a>
 </body>

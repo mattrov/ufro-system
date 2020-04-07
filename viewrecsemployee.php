@@ -22,7 +22,7 @@
 					<form method='post' action="employeesearch.php">
 						<div class="form-group">
 			<div class="row m-1">
-				<input class="form-control col-sm-3 m-1" type="text" name="search"></input>
+				<input class="form-control col-sm-3 m-1" type="text" name="searchvalue"></input>
 				<button type="submit" name="search" class="btn btn-primary ml-1">Search</button>	
 				<button type="submit" name="edit" class="btn btn-secondary ml-1">Edit</button>	
 			</div>

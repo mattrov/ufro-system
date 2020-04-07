@@ -7,13 +7,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-	$query = "SELECT * FROM employee WHERE employee_no LIKE '%".$searchvalue."%' OR employee_name LIKE '%".$searchvalue."%' 
+	$query = "SELECT * FROM student WHERE student_no LIKE '%".$searchvalue."%' OR student_name LIKE '%".$searchvalue."%' 
 	OR date LIKE '%".$searchvalue."%'OR time LIKE '%".$searchvalue."%' OR gender LIKE '%".$searchvalue."%' OR event_name LIKE '%".$searchvalue."%'
-	OR facility LIKE '%".$searchvalue."%'";
+	OR facility LIKE '%".$searchvalue."%' OR adviser LIKE '%".$searchvalue."%'";
 	$search_result = filterTable($query);
 
 }else {
-	$query = "SELECT * FROM employee";
+	$query = "SELECT * FROM student";
 	$search_result = filterTable($query);
 }
 
@@ -48,7 +48,7 @@ function filterTable($query)
 			<div class="card-body">
 				<h3 class="text-center p-4">View Record</h3>
 				<div class="form-horizontal">
-					<form method='post' action="employeesearch.php">
+					<form method='post' action="studentsearch.php">
 						<div class="form-group">
 			<div class="row m-1">
 				<input class="form-control col-sm-3 m-1" type="text" name="searchvalue"></input>
@@ -69,6 +69,7 @@ function filterTable($query)
 							<th scope="col">GENDER</th>
 							<th scope="col">EVENT NAME</th>
 							<th scope="col">FACILITY</th> 
+							<th scope="col">ADVISER</th> 
 						</tr>
 					</thead>
 					<?php
@@ -79,13 +80,14 @@ while($row = mysqli_fetch_array($search_result))
 
 ?>
 <tr>
-<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['employee_no'];?></font></td>
-<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['employee_name'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['student_no'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['student_name'];?></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><?php echo $row['date'];?></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><?php echo $row['time'];?></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><?php echo $row['gender'];?></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><?php echo $row['event_name'];?></font></td>
 <td><font face="Arial, Helvetica, sans-serif"><?php echo $row['facility'];?></font></td>
+<td><font face="Arial, Helvetica, sans-serif"><?php echo $row['adviser'];?></font></td>
 </tr>
 <?php
 $i++;
@@ -108,6 +110,6 @@ else {
 
 <?php
 if (isset($_POST["edit"])){
-header("location: updateemployee.php");
+header("location: updatestudent.php");
 }
 ?>

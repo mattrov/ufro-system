@@ -5,20 +5,21 @@ $username="root";
 $password="";
 $database="ufro";
 $conn = mysqli_connect($servername,$username,$password,$database);
-$query="SELECT * FROM employee WHERE id='".$id."'";
+$query="SELECT * FROM student WHERE id='".$id."'";
 $result= mysqli_query($conn,$query);
 $num= mysqli_num_rows($result);
 $i=0;
 while($row=mysqli_fetch_assoc($result))
 {
 $id = $row['id'];
-$empno = $row['employee_no'];
-$empname = $row['employee_name'];
+$empno = $row['student_no'];
+$empname = $row['student_name'];
 $tripstart = $row['date'];
 $appt = $row['time'];
 $inlineRadioOptions = $row['gender'];
 $evename = $row['event_name'];
 $facility = $row['facility'];
+$adviser = $row['adviser'];
 }
 ?>
 <!DOCTYPE html>
@@ -48,20 +49,20 @@ $facility = $row['facility'];
 			<div class="card-body">
 				<h3 class="text-center p-4">Update Record</h3>
 				<div class="form-horizontal">
-					<form method='post' action="empledited.php">
+					<form method='post' action="studedited.php">
 					<tr> <td> <input type="hidden" name="id" value="<?php echo $id; ?>"> </tr>
 						
 						<div class="form-group">
 							<div class="row">
 								<label class="control-label">Employee Number:</label>
-								<input class="form-control" type="text" name="employee_no" value="<?php echo $empno; ?>"></input>	
+								<input class="form-control" type="text" name="student_no" value="<?php echo $empno; ?>"></input>	
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="row">
 								<label class="control-label">Employee Name:</label>
-								<input class="form-control" type="text" name="employee_name" value="<?php echo $empname; ?>"></input>	
+								<input class="form-control" type="text" name="student_name" value="<?php echo $empname; ?>"></input>	
 							</div>
 						</div>
 
@@ -111,6 +112,13 @@ $facility = $row['facility'];
       						  		<option>Mini Theater</option>
       							</select>
       						</div>
+   	 					</div>
+
+   	 					<div class="form-group">
+   	 						<div class="row">
+   	 							<label class="control-label">Adviser Name:</label>
+   	 							<input class="form-control" type="text" name="adviser" value="<?php echo $adviser; ?>">
+   	 						</div>
    	 					</div>
 						<input class="btn btn-primary offset-sm-4" type="submit" name="update" value="Update"></input>
 						<input class="btn btn-danger" type="Reset" value="Reset" name="Reset">
